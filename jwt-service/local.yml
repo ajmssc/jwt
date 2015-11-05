@@ -1,0 +1,77 @@
+
+jwtTokenSecret: fewijafoejwa9083joijewoirj1o2cjrojoijcr12
+jwtSessionDuration: 86400
+
+
+
+mongo:
+  host:     127.0.0.1
+  port:     27017
+  db:       jwt
+  user:
+  password:
+
+
+#
+#mongo:
+#  uri: mongodb://127.0.0.1:27017/?maxPoolSize=50&maxIdleTimeMS=300000
+#  dbName: jwt
+
+# Database settings.
+database:
+
+
+  driverClass: org.apache.derby.jdbc.EmbeddedDriver
+  url: jdbc:derby:/tmp/mydb;create=true
+  user: admin
+  password: admin
+  minSize: 8
+  maxSize: 200
+  validationQuery: values 1
+  properties:
+    hibernate.temp.use_jdbc_metadata_defaults: false
+    hibernate.dialect: org.hibernate.dialect.DerbyTenSevenDialect
+    hibernate.hbm2ddl.auto: update
+    hibernate.format_sql: true
+
+
+server:
+  rootPath: '/api/*'
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+  requestLog:
+    appenders:
+      - type: console
+
+# Logging settings.
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+    com.example: INFO
+    org.hibernate.SQL: ALL
+    com.github.toastshaman.dropwizard: ERROR
+
+  appenders:
+    - type: console
+    - type: file
+      # The file to which current statements will be logged.
+      currentLogFilename: jwt.log
+
+      # When the log file rotates, the archived log will be renamed to this and gzipped. The
+      # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
+      # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
+      archivedLogFilenamePattern: /var/log/jwt/jwt-%d.log
+
+      # The number of archived files to keep.
+      archivedFileCount: 5
+
+      # The timezone used to format dates. HINT: USE THE DEFAULT, UTC.
+      timeZone: UTC
